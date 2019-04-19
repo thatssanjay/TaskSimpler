@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script src="js/lib/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript">
+        function GetBook() {
+            debugger
+            $.ajax({
+                type: "GET",
+                url: "http://localhost:66/TaskSimpler.svc/GetProjects/2",
+                contentType: 'json',
+                dataType: 'json',
+                success: function (data) {
+                    debugger
+                    var jsondata = JSON.parse(data);
+                    $.each(jsondata, function (key, value) {
+
+                        alert(value.ProjectName);
+                    });
+                  
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    debugger
+                    alert("Status: " + textStatus); alert("Error: " + errorThrown);
+                }
+            });
+        }
+
+
+    </script>
+</head>
+<body>
+    <input type="button" onclick="GetBook()" value="call" />
+</body>
+</html>

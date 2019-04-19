@@ -1,0 +1,23 @@
+﻿
+{
+  "name": "Projects & Task",
+  "manifest_version": 2,
+  "version": "1.0",
+  "description": "My first Chrome extension.",
+  "browser_action": {
+    "default_icon": "icon.png",
+    "default_popup": "ProjectHome.html"
+  },
+  "icons":{
+		"128":"Icon2.png"
+	},
+   "permissions": [
+        "tabs",
+        "http://*/*",
+        "https://*/*",
+        "chrome://favicon/",
+        "storage"
+    ]
+}
+
+ 

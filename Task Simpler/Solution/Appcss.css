@@ -1,0 +1,52 @@
+﻿._bgcolor {
+ background-color:green;
+ color:white;
+}
+
+._TimeStyle {
+font-size:45px;
+font-weight:bolder;
+color:green;
+}
+
+._FormWidth {
+    width:300px;
+}
+
+._OverTime {
+
+    font-size:45px;
+font-weight:bolder;
+color:red;
+}
+._Lable {
+    font-size:18px; font-weight:bold;
+}
+
+body{
+
+     width:700px;
+     height:450px;
+     /*border:1px solid red;*/
+}
+.Editbox {
+    border:none;
+    background-color:transparent;
+}
+
+.EditboxTextArea {
+   border:none;
+    background-color:transparent;
+    width:300px;
+    height:60px;
+}
+
+input[type="text"]:focus{
+border:1px solid #47a6d8;
+background-color:white;
+}
+
+.taskcolumn {
+width:200px;
+background-color:red;
+}

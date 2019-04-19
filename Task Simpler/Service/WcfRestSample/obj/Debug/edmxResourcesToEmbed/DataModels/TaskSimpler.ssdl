@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TaskSimplerModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+  <EntityContainer Name="TaskSimplerModelStoreContainer">
+    <EntitySet Name="Book" EntityType="TaskSimplerModel.Store.Book" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="MemberMaster" EntityType="TaskSimplerModel.Store.MemberMaster" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="PriorityMaster" EntityType="TaskSimplerModel.Store.PriorityMaster" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ProjectMaster" EntityType="TaskSimplerModel.Store.ProjectMaster" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="StatusMaster" EntityType="TaskSimplerModel.Store.StatusMaster" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Task" EntityType="TaskSimplerModel.Store.Task" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_Task_MemberMaster" Association="TaskSimplerModel.Store.FK_Task_MemberMaster">
+      <End Role="MemberMaster" EntitySet="MemberMaster" />
+      <End Role="Task" EntitySet="Task" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Task_PriorityMaster" Association="TaskSimplerModel.Store.FK_Task_PriorityMaster">
+      <End Role="PriorityMaster" EntitySet="PriorityMaster" />
+      <End Role="Task" EntitySet="Task" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Task_ProjectMaster" Association="TaskSimplerModel.Store.FK_Task_ProjectMaster">
+      <End Role="ProjectMaster" EntitySet="ProjectMaster" />
+      <End Role="Task" EntitySet="Task" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Task_StatusMaster" Association="TaskSimplerModel.Store.FK_Task_StatusMaster">
+      <End Role="StatusMaster" EntitySet="StatusMaster" />
+      <End Role="Task" EntitySet="Task" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Book">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="BookName" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="MemberMaster">
+    <Key>
+      <PropertyRef Name="MemberID" />
+    </Key>
+    <Property Name="MemberID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="LoginName" Type="varchar" MaxLength="200" />
+    <Property Name="FirstName" Type="varchar" MaxLength="150" />
+    <Property Name="LastName" Type="varchar" MaxLength="150" />
+    <Property Name="Password" Type="varchar" MaxLength="50" />
+    <Property Name="Mobile" Type="numeric" />
+    <Property Name="EmailAddress" Type="varchar" MaxLength="200" />
+    <Property Name="Addedon" Type="datetime" />
+  </EntityType>
+  <EntityType Name="PriorityMaster">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Priority" Type="varchar" Nullable="false" MaxLength="150" />
+    <Property Name="Description" Type="varchar" MaxLength="300" />
+    <Property Name="MemberID" Type="int" />
+    <Property Name="CreatedOn" Type="datetime" />
+  </EntityType>
+  <EntityType Name="ProjectMaster">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="ProjectName" Type="varchar" MaxLength="200" />
+    <Property Name="Description" Type="varchar" MaxLength="800" />
+    <Property Name="MemberId" Type="int" />
+    <Property Name="CreatedOn" Type="datetime" />
+  </EntityType>
+  <EntityType Name="StatusMaster">
+    <Key>
+      <PropertyRef Name="StatusID" />
+    </Key>
+    <Property Name="StatusID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Status" Type="varchar" Nullable="false" MaxLength="500" />
+    <Property Name="MemberID" Type="int" />
+    <Property Name="Description" Type="varchar" MaxLength="500" />
+    <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Task">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="TaskName" Type="varchar" Nullable="false" MaxLength="2000" />
+    <Property Name="Addedon" Type="datetime" Nullable="false" />
+    <Property Name="UpdatedOn" Type="datetime" Nullable="false" />
+    <Property Name="MemberId" Type="int" Nullable="false" />
+    <Property Name="StartOn" Type="datetime" />
+    <Property Name="CompletedOn" Type="datetime" />
+    <Property Name="ProjectId" Type="int" Nullable="false" />
+    <Property Name="PriorityId" Type="int" Nullable="false" />
+    <Property Name="StatusId" Type="int" Nullable="false" />
+    <Property Name="Descriptioin" Type="varchar" MaxLength="5000" />
+  </EntityType>
+  <Association Name="FK_Task_MemberMaster">
+    <End Role="MemberMaster" Type="TaskSimplerModel.Store.MemberMaster" Multiplicity="1" />
+    <End Role="Task" Type="TaskSimplerModel.Store.Task" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MemberMaster">
+        <PropertyRef Name="MemberID" />
+      </Principal>
+      <Dependent Role="Task">
+        <PropertyRef Name="MemberId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Task_PriorityMaster">
+    <End Role="PriorityMaster" Type="TaskSimplerModel.Store.PriorityMaster" Multiplicity="1" />
+    <End Role="Task" Type="TaskSimplerModel.Store.Task" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PriorityMaster">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Task">
+        <PropertyRef Name="PriorityId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Task_ProjectMaster">
+    <End Role="ProjectMaster" Type="TaskSimplerModel.Store.ProjectMaster" Multiplicity="1" />
+    <End Role="Task" Type="TaskSimplerModel.Store.Task" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProjectMaster">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Task">
+        <PropertyRef Name="PriorityId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Task_StatusMaster">
+    <End Role="StatusMaster" Type="TaskSimplerModel.Store.StatusMaster" Multiplicity="1" />
+    <End Role="Task" Type="TaskSimplerModel.Store.Task" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="StatusMaster">
+        <PropertyRef Name="StatusID" />
+      </Principal>
+      <Dependent Role="Task">
+        <PropertyRef Name="StatusId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="usp_getPriority" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="memberId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="usp_GetProjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="memberid" Type="int" Mode="In" />
+  </Function>
+  <Function Name="usp_GetStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="memberid" Type="int" Mode="In" />
+  </Function>
+</Schema>

@@ -1,0 +1,284 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <link type="text/css" href="Appcss.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/lib/bootstrap.min.css" />
+	<link rel="stylesheet" href="css/lib/font-awesome.min.css" />
+	<link rel="stylesheet" href="css/lib/dataTables.bootstrap.min.css" />
+	<link rel="stylesheet" href="css/lib/datepicker.css" />
+	<!--<link rel="stylesheet" href="css/lib/jquery.dataTables.min.css" />-->
+	<link rel="stylesheet" href="css/lib/checkbox.css" />
+	<link rel="stylesheet" href="css/menu.css" />
+	<link rel="stylesheet" href="css/style.css" />
+    <script src="Common.js" type="text/javascript" ></script>
+    <script   src="jquery.min.js" type="text/javascript" ></script>
+    <script src="jquery.contextmenu.min.js" type="text/javascript" ></script>
+    <title></title>
+</head>
+<body>
+
+
+    
+    <table id="table" class="table table-striped hover" >
+        <tr>
+            <td>
+                <label for="inputName" class="col-sm-4 control-label">Select Project</label>
+            </td>
+            <td>
+                <select class="form-control" id="ddlProjects" >
+        <option value="1" >Task List</option>
+         
+       </select>
+            </td>
+            <td>
+                <button style="padding-right:5px"  title="Add new Project"  class="add-project-btn" data-toggle="modal" data-target="#ProjectModel" ><i  class="fa fa-plus">Add</i></button>
+                <button  style="padding-left:5px"  id="btnEditProject" title="Edit Project" class="add-project-btn" data-toggle="modal" data-target="#ModalEditProject" ><i class="fa fa-edit">Edit</i></button>
+            </td>
+            <td>
+            </td>
+        </tr>
+    </table>
+    <table>
+        <tr>
+            <td>
+                <button  style="padding-left:5px; margin-bottom:4px"  id="Button1" title="Add New Task (CTRL+N)" class="add-project-btn" data-toggle="modal" data-target="#TaskModal" ><i class="fa fa-plus">Add Task</i></button>
+            </td>
+        </tr>
+    </table>
+    
+    <div id="divTaskDetails">
+
+    </div>
+    <!--<input type="button" id="btnReset" class="_bgcolor" value="RESET"  />-->
+      <div class="modal fade" id="ProjectModel"  role="dialog">
+		<div class="modal-dialog">
+		  <div class="modal-content">
+			<div class="modal-header">
+			  <button type="button" class="close" data-dismiss="modal">&times;</button>
+			  <h4 class="modal-title project-name">Add New Project</h4>
+			</div>
+			<div class="modal-body">
+				<form class="form-horizontal">
+					<div class="form-group">
+						<label for="inputName" class="col-sm-4 control-label">Project Name</label>
+						<div class="col-sm-8">
+						  <input type="text" class="form-control" id="txtProjectName"/>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="inputGolobalId" class="col-sm-4 control-label">Description</label>
+						<div class="col-sm-8">
+						  <input type="text" class="form-control" id="txtProjectDescription"/>
+						</div>
+					</div>
+				</form>
+			</div>
+             
+			<div class="modal-footer">
+			  <button type="button" class="btn btn-primary" data-dismiss="modal" id="btnAddnewProject"  >Add Project</button>	
+			  <button type="button" class="btn btn-danger" data-dismiss="modal" id="Cancel"  >Cancel</button>
+			</div>
+              
+		  </div>
+		</div>
+	  </div>
+
+    <div class="modal fade" id="ModalEditProject" role="dialog">
+		<div class="modal-dialog">
+		  <div class="modal-content">
+			<div class="modal-header">
+			  <button type="button" class="close" data-dismiss="modal">&times;</button>
+			  <h4 class="modal-title project-name">Add New Project</h4>
+			</div>
+			<div class="modal-body">
+				<form class="form-horizontal">
+					 <div id="divProjectTable" >
+               
+              </div>
+					
+				</form>
+			</div>
+		  </div>
+		</div>
+	  </div>
+       <div class="modal fade" id="TaskModal" role="dialog"   >
+		<div class="modal-dialog">
+		  <div class="modal-content">
+			<div class="modal-header">
+			  <button type="button" class="close" data-dismiss="modal">&times;</button>
+			  <h4 class="modal-title project-name">Add New Task</h4>
+			</div>
+			<div class="modal-body">
+				<form class="form-horizontal">
+					<div class="form-group"  >
+						<label for="inputName" class="col-sm-4 control-label">Task</label>
+						<div class="col-sm-8">
+                            <textarea id="txtTask"  style="width:100%" cols="2" ></textarea>
+						  <!--<input type="text" class="form-control" id="txtTask"/>-->
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="inputGolobalId" class="col-sm-4 control-label">Description</label>
+						<div class="col-sm-8">
+                             <textarea id="txtTaskDescription"  style="width:100%" cols="3" ></textarea>
+						</div>
+					</div>
+                    <div class="form-group">
+						<label for="inputGolobalId" class="col-sm-4 control-label">Priority</label>
+						<div class="col-sm-8">
+						  <select id="ddlPriority">
+                              <option  value="1">High</option>
+						  </select>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+			  <button type="button" class="btn btn-primary" data-dismiss="modal" id="btnSaveTask"  >Add Task</button>	
+			  <button type="button" class="btn btn-danger" data-dismiss="modal" id="btnCaneclTask"  >Cancel</button>
+			</div>
+              
+		  </div>
+		</div>
+	  </div>
+
+        
+    <div class="modal fade" id="divEditTask" role="dialog"   >
+		<div class="modal-dialog">
+		  <div class="modal-content">
+			<div class="modal-header">
+			  <button type="button" class="close" data-dismiss="modal">&times;</button>
+			  <h4 class="modal-title project-name">Update Task</h4>
+			</div>
+			<div class="modal-body">
+				<form class="form-horizontal">
+					<div class="form-group"  >
+						<label for="inputName" class="col-sm-4 control-label">Task</label>
+						<div class="col-sm-8">
+                            <!--<input type="hidden" id="hiddentaskid" />-->
+                            <textarea id="txtTaskNameupdate"  style="width:100%" cols="2" ></textarea>
+						  <!--<input type="text" class="form-control" id="txtTask"/>-->
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="inputGolobalId" class="col-sm-4 control-label">Description</label>
+						<div class="col-sm-8">
+                             <textarea id="txtTaskDescriptionUpdate"  style="width:100%" cols="3" ></textarea>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+			  <button type="button" class="btn btn-primary" data-dismiss="modal" id="btnupdateTask"  >Update Task</button>	
+			  <button type="button" class="btn btn-danger" data-dismiss="modal" id="btnCancelTask"  >Cancel</button>
+			</div>
+              
+		  </div>
+		</div>
+	  </div>
+
+    <div class="modal fade" id="divTaskDescription" role="dialog"   >
+		<div class="modal-dialog">
+		  <div class="modal-content">
+			<div class="modal-header">
+			  <button type="button" class="close" data-dismiss="modal">&times;</button>
+			  <h4 class="modal-title project-name">Task Details</h4>
+			</div>
+			<div class="modal-body">
+				<form class="form-horizontal">
+					<div class="form-group"  >
+						<label for="inputName" class="col-sm-4 control-label">Task :</label>
+                           <span id="spnTask"></span>
+					</div>
+					<div class="form-group">
+						<label for="inputGolobalId" class="col-sm-4 control-label">Description :</label>
+						 
+                             <span id="spnDescription"></span>
+						 
+					</div>
+
+                    <div class="form-group">
+						<label for="inputGolobalId" class="col-sm-4 control-label">Project Name :</label>
+						 
+                             <span id="spnProject"></span>
+						 
+					</div>
+
+                      <div class="form-group">
+						<label for="inputGolobalId" class="col-sm-4 control-label">User Name :</label>
+					 
+                             <span id="spnName"></span>
+						 
+					</div>
+
+                      <div class="form-group">
+						<label for="inputGolobalId" class="col-sm-4 control-label">Status :</label>
+						 
+                             <span id="spnStatus"></span>
+						 
+					</div>
+
+                      <div class="form-group">
+						<label for="inputGolobalId" class="col-sm-4 control-label">Priority :</label>
+						 
+                             <span id="spnPriority"></span>
+						 
+					</div>
+                      <div class="form-group">
+						<label for="inputGolobalId" class="col-sm-4 control-label">Created On :</label>
+						 
+                             <span id="spnCreatedon"></span>
+						 
+					</div>
+
+                     <div class="form-group">
+						<label for="inputGolobalId" class="col-sm-4 control-label">Last updated on :</label>
+						 
+                             <span id="spnUpdatedOn"></span>
+						 
+					</div>
+
+				</form>
+			</div>
+			<!--<div class="modal-footer">
+			  <button type="button" class="btn btn-primary" data-dismiss="modal" id="Button2"  >Update Task</button>	
+			  <button type="button" class="btn btn-danger" data-dismiss="modal" id="Button3"  >Cancel</button>
+			</div>-->
+              
+		  </div>
+		</div>
+	  </div>
+
+    <div class="contextMenu" id="myMenu1">
+<ul>
+<li id="edit" class="fa fa-edit " > Edit</li>
+<li id="delete" class="fa fa-trash" > Delete</li>
+<li id="details" class="fa fa-eye" > Details</li>
+<li id="transfer" class="fa fa-files-o"> Copy</li>
+ <li id="Li1" class="fa fa-repeat"> Transfer</li>
+</ul>
+</div>
+   <!--  <span class="demo1" id="quickDemo" style="border: 1px solid #888;"> <b>jQueryScript.Net Demo</b> right-click me!! </span>
+
+    <input type="button" value="call" id="btncall1"/>-->
+<!--    <textarea></textarea>
+<p><a href="#">Export</a></p>-->
+  
+    
+<script src="StatusMaster.js"  ></script>
+<script src="PriorityMaster.js"></script>
+<script src="Project.js"  ></script>
+
+<script src="task.js"  ></script>
+
+<script src="js/lib/jquery-1.9.1.min.js"></script>
+<script src="js/lib/bootstrap.min.js"></script>
+<script src="js/menu.js"></script>
+<script src="js/lib/bootstrap-tabcollapse.js"></script>
+<script src="js/lib/jquery.dataTables.min.js"></script>
+<script src="js/lib/dataTables.bootstrap.min.js"></script>
+<script src="js/lib/datepicker.js"></script>
+ 
+
+</body>
+</html>

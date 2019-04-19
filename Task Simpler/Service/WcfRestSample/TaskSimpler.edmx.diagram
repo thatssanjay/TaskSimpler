@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="ef69e44642bc461bbb5ce17d39285d0e" Name="Diagram1">
+        <EntityTypeShape EntityType="TaskSimplerModel.Book" Width="1.5" PointX="0.5" PointY="0.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TaskSimplerModel.MemberMaster" Width="2.625" PointX="2.125" PointY="0.625" />
+        <EntityTypeShape EntityType="TaskSimplerModel.PriorityMaster" Width="2.625" PointX="5.125" PointY="2.125" />
+        <EntityTypeShape EntityType="TaskSimplerModel.ProjectMaster" Width="2.625" PointX="8.125" PointY="3.625" />
+        <EntityTypeShape EntityType="TaskSimplerModel.StatusMaster" Width="2.625" PointX="11.125" PointY="5.125" />
+        <EntityTypeShape EntityType="TaskSimplerModel.Task" Width="2.625" PointX="14.125" PointY="6.625" />
+        <AssociationConnector Association="TaskSimplerModel.FK_Task_MemberMaster" />
+        <AssociationConnector Association="TaskSimplerModel.FK_Task_PriorityMaster" />
+        <AssociationConnector Association="TaskSimplerModel.FK_Task_ProjectMaster" />
+        <AssociationConnector Association="TaskSimplerModel.FK_Task_StatusMaster" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

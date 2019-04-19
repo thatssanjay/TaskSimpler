@@ -1,0 +1,464 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="TaskSimplerModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="TaskSimplerModelStoreContainer">
+          <EntitySet Name="Book" EntityType="TaskSimplerModel.Store.Book" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="MemberMaster" EntityType="TaskSimplerModel.Store.MemberMaster" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="PriorityMaster" EntityType="TaskSimplerModel.Store.PriorityMaster" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ProjectMaster" EntityType="TaskSimplerModel.Store.ProjectMaster" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="StatusMaster" EntityType="TaskSimplerModel.Store.StatusMaster" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Task" EntityType="TaskSimplerModel.Store.Task" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_Task_MemberMaster" Association="TaskSimplerModel.Store.FK_Task_MemberMaster">
+            <End Role="MemberMaster" EntitySet="MemberMaster" />
+            <End Role="Task" EntitySet="Task" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Task_PriorityMaster" Association="TaskSimplerModel.Store.FK_Task_PriorityMaster">
+            <End Role="PriorityMaster" EntitySet="PriorityMaster" />
+            <End Role="Task" EntitySet="Task" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Task_ProjectMaster" Association="TaskSimplerModel.Store.FK_Task_ProjectMaster">
+            <End Role="ProjectMaster" EntitySet="ProjectMaster" />
+            <End Role="Task" EntitySet="Task" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Task_StatusMaster" Association="TaskSimplerModel.Store.FK_Task_StatusMaster">
+            <End Role="StatusMaster" EntitySet="StatusMaster" />
+            <End Role="Task" EntitySet="Task" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Book">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="BookName" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="MemberMaster">
+          <Key>
+            <PropertyRef Name="MemberID" />
+          </Key>
+          <Property Name="MemberID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="LoginName" Type="varchar" MaxLength="200" />
+          <Property Name="FirstName" Type="varchar" MaxLength="150" />
+          <Property Name="LastName" Type="varchar" MaxLength="150" />
+          <Property Name="Password" Type="varchar" MaxLength="50" />
+          <Property Name="Mobile" Type="numeric" />
+          <Property Name="EmailAddress" Type="varchar" MaxLength="200" />
+          <Property Name="Addedon" Type="datetime" />
+        </EntityType>
+        <EntityType Name="PriorityMaster">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Priority" Type="varchar" Nullable="false" MaxLength="150" />
+          <Property Name="Description" Type="varchar" MaxLength="300" />
+          <Property Name="MemberID" Type="int" />
+          <Property Name="CreatedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="ProjectMaster">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ProjectName" Type="varchar" MaxLength="200" />
+          <Property Name="Description" Type="varchar" MaxLength="800" />
+          <Property Name="MemberId" Type="int" />
+          <Property Name="CreatedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="StatusMaster">
+          <Key>
+            <PropertyRef Name="StatusID" />
+          </Key>
+          <Property Name="StatusID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Status" Type="varchar" Nullable="false" MaxLength="500" />
+          <Property Name="MemberID" Type="int" />
+          <Property Name="Description" Type="varchar" MaxLength="500" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Task">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="TaskName" Type="varchar" Nullable="false" MaxLength="2000" />
+          <Property Name="Addedon" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedOn" Type="datetime" Nullable="false" />
+          <Property Name="MemberId" Type="int" Nullable="false" />
+          <Property Name="StartOn" Type="datetime" />
+          <Property Name="CompletedOn" Type="datetime" />
+          <Property Name="ProjectId" Type="int" Nullable="false" />
+          <Property Name="PriorityId" Type="int" Nullable="false" />
+          <Property Name="StatusId" Type="int" Nullable="false" />
+          <Property Name="Descriptioin" Type="varchar" MaxLength="5000" />
+        </EntityType>
+        <Association Name="FK_Task_MemberMaster">
+          <End Role="MemberMaster" Type="TaskSimplerModel.Store.MemberMaster" Multiplicity="1" />
+          <End Role="Task" Type="TaskSimplerModel.Store.Task" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MemberMaster">
+              <PropertyRef Name="MemberID" />
+            </Principal>
+            <Dependent Role="Task">
+              <PropertyRef Name="MemberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Task_PriorityMaster">
+          <End Role="PriorityMaster" Type="TaskSimplerModel.Store.PriorityMaster" Multiplicity="1" />
+          <End Role="Task" Type="TaskSimplerModel.Store.Task" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PriorityMaster">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Task">
+              <PropertyRef Name="PriorityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Task_ProjectMaster">
+          <End Role="ProjectMaster" Type="TaskSimplerModel.Store.ProjectMaster" Multiplicity="1" />
+          <End Role="Task" Type="TaskSimplerModel.Store.Task" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProjectMaster">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Task">
+              <PropertyRef Name="PriorityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Task_StatusMaster">
+          <End Role="StatusMaster" Type="TaskSimplerModel.Store.StatusMaster" Multiplicity="1" />
+          <End Role="Task" Type="TaskSimplerModel.Store.Task" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StatusMaster">
+              <PropertyRef Name="StatusID" />
+            </Principal>
+            <Dependent Role="Task">
+              <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="usp_getPriority" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="memberId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="usp_GetProjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="memberid" Type="int" Mode="In" />
+        </Function>
+        <Function Name="usp_GetStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="memberid" Type="int" Mode="In" />
+        </Function>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TaskSimplerModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="TaskSimplerEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Books" EntityType="TaskSimplerModel.Book" />
+          <EntitySet Name="MemberMasters" EntityType="TaskSimplerModel.MemberMaster" />
+          <EntitySet Name="PriorityMasters" EntityType="TaskSimplerModel.PriorityMaster" />
+          <EntitySet Name="ProjectMasters" EntityType="TaskSimplerModel.ProjectMaster" />
+          <EntitySet Name="StatusMasters" EntityType="TaskSimplerModel.StatusMaster" />
+          <EntitySet Name="Tasks" EntityType="TaskSimplerModel.Task" />
+          <AssociationSet Name="FK_Task_MemberMaster" Association="TaskSimplerModel.FK_Task_MemberMaster">
+            <End Role="MemberMaster" EntitySet="MemberMasters" />
+            <End Role="Task" EntitySet="Tasks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Task_PriorityMaster" Association="TaskSimplerModel.FK_Task_PriorityMaster">
+            <End Role="PriorityMaster" EntitySet="PriorityMasters" />
+            <End Role="Task" EntitySet="Tasks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Task_ProjectMaster" Association="TaskSimplerModel.FK_Task_ProjectMaster">
+            <End Role="ProjectMaster" EntitySet="ProjectMasters" />
+            <End Role="Task" EntitySet="Tasks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Task_StatusMaster" Association="TaskSimplerModel.FK_Task_StatusMaster">
+            <End Role="StatusMaster" EntitySet="StatusMasters" />
+            <End Role="Task" EntitySet="Tasks" />
+          </AssociationSet>
+          <FunctionImport Name="usp_GetProjects" ReturnType="Collection(TaskSimplerModel.usp_GetProjects_Result)">
+          <Parameter Name="memberid" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_getPriority" ReturnType="Collection(TaskSimplerModel.usp_getPriority_Result)">
+            <Parameter Name="memberId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_GetStatus" ReturnType="Collection(TaskSimplerModel.usp_GetStatus_Result)">
+            <Parameter Name="memberid" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <EntityType Name="Book">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BookName" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="MemberMaster">
+          <Key>
+            <PropertyRef Name="MemberID" />
+          </Key>
+          <Property Type="Int32" Name="MemberID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="LoginName" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="FirstName" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="LastName" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Password" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Decimal" Name="Mobile" Precision="18" Scale="0" />
+          <Property Type="String" Name="EmailAddress" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="Addedon" Precision="3" />
+          <NavigationProperty Name="Tasks" Relationship="TaskSimplerModel.FK_Task_MemberMaster" FromRole="MemberMaster" ToRole="Task" />
+        </EntityType>
+        <EntityType Name="PriorityMaster">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Priority" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Description" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="MemberID" />
+          <Property Type="DateTime" Name="CreatedOn" Precision="3" />
+          <NavigationProperty Name="Tasks" Relationship="TaskSimplerModel.FK_Task_PriorityMaster" FromRole="PriorityMaster" ToRole="Task" />
+        </EntityType>
+        <EntityType Name="ProjectMaster">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="ProjectName" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Description" MaxLength="800" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="MemberId" />
+          <Property Type="DateTime" Name="CreatedOn" Precision="3" />
+          <NavigationProperty Name="Tasks" Relationship="TaskSimplerModel.FK_Task_ProjectMaster" FromRole="ProjectMaster" ToRole="Task" />
+        </EntityType>
+        <EntityType Name="StatusMaster">
+          <Key>
+            <PropertyRef Name="StatusID" />
+          </Key>
+          <Property Type="Int32" Name="StatusID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Status" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="MemberID" />
+          <Property Type="String" Name="Description" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="CreatedOn" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Tasks" Relationship="TaskSimplerModel.FK_Task_StatusMaster" FromRole="StatusMaster" ToRole="Task" />
+        </EntityType>
+        <EntityType Name="Task">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="TaskName" Nullable="false" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="Addedon" Nullable="false" Precision="3" />
+          <Property Type="DateTime" Name="UpdatedOn" Nullable="false" Precision="3" />
+          <Property Type="Int32" Name="MemberId" Nullable="false" />
+          <Property Type="DateTime" Name="StartOn" Precision="3" />
+          <Property Type="DateTime" Name="CompletedOn" Precision="3" />
+          <Property Type="Int32" Name="ProjectId" Nullable="false" />
+          <Property Type="Int32" Name="PriorityId" Nullable="false" />
+          <Property Type="Int32" Name="StatusId" Nullable="false" />
+          <Property Type="String" Name="Descriptioin" MaxLength="5000" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="MemberMaster" Relationship="TaskSimplerModel.FK_Task_MemberMaster" FromRole="Task" ToRole="MemberMaster" />
+          <NavigationProperty Name="PriorityMaster" Relationship="TaskSimplerModel.FK_Task_PriorityMaster" FromRole="Task" ToRole="PriorityMaster" />
+          <NavigationProperty Name="ProjectMaster" Relationship="TaskSimplerModel.FK_Task_ProjectMaster" FromRole="Task" ToRole="ProjectMaster" />
+          <NavigationProperty Name="StatusMaster" Relationship="TaskSimplerModel.FK_Task_StatusMaster" FromRole="Task" ToRole="StatusMaster" />
+        </EntityType>
+        <Association Name="FK_Task_MemberMaster">
+          <End Type="TaskSimplerModel.MemberMaster" Role="MemberMaster" Multiplicity="1" />
+          <End Type="TaskSimplerModel.Task" Role="Task" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MemberMaster">
+              <PropertyRef Name="MemberID" />
+            </Principal>
+            <Dependent Role="Task">
+              <PropertyRef Name="MemberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Task_PriorityMaster">
+          <End Type="TaskSimplerModel.PriorityMaster" Role="PriorityMaster" Multiplicity="1" />
+          <End Type="TaskSimplerModel.Task" Role="Task" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PriorityMaster">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Task">
+              <PropertyRef Name="PriorityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Task_ProjectMaster">
+          <End Type="TaskSimplerModel.ProjectMaster" Role="ProjectMaster" Multiplicity="1" />
+          <End Type="TaskSimplerModel.Task" Role="Task" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProjectMaster">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Task">
+              <PropertyRef Name="PriorityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Task_StatusMaster">
+          <End Type="TaskSimplerModel.StatusMaster" Role="StatusMaster" Multiplicity="1" />
+          <End Type="TaskSimplerModel.Task" Role="Task" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StatusMaster">
+              <PropertyRef Name="StatusID" />
+            </Principal>
+            <Dependent Role="Task">
+              <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="usp_GetProjects_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Priority" Nullable="false" MaxLength="150" />
+          <Property Type="String" Name="Description" Nullable="true" MaxLength="300" />
+          <Property Type="Int32" Name="MemberID" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="usp_getPriority_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Priority" Nullable="false" MaxLength="150" />
+          <Property Type="String" Name="Description" Nullable="true" MaxLength="300" />
+          <Property Type="Int32" Name="MemberID" Nullable="true" />
+          <Property Type="DateTime" Name="CreatedOn" Nullable="true" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="usp_GetStatus_Result">
+          <Property Type="Int32" Name="StatusID" Nullable="false" />
+          <Property Type="String" Name="Status" Nullable="false" MaxLength="500" />
+          <Property Type="Int32" Name="MemberID" Nullable="true" />
+          <Property Type="String" Name="Description" Nullable="true" MaxLength="500" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TaskSimplerModelStoreContainer" CdmEntityContainer="TaskSimplerEntities">
+          <EntitySetMapping Name="Books">
+            <EntityTypeMapping TypeName="TaskSimplerModel.Book">
+              <MappingFragment StoreEntitySet="Book">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="BookName" ColumnName="BookName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MemberMasters">
+            <EntityTypeMapping TypeName="TaskSimplerModel.MemberMaster">
+              <MappingFragment StoreEntitySet="MemberMaster">
+                <ScalarProperty Name="Addedon" ColumnName="Addedon" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LoginName" ColumnName="LoginName" />
+                <ScalarProperty Name="MemberID" ColumnName="MemberID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PriorityMasters">
+            <EntityTypeMapping TypeName="TaskSimplerModel.PriorityMaster">
+              <MappingFragment StoreEntitySet="PriorityMaster">
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="MemberID" ColumnName="MemberID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Priority" ColumnName="Priority" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProjectMasters">
+            <EntityTypeMapping TypeName="TaskSimplerModel.ProjectMaster">
+              <MappingFragment StoreEntitySet="ProjectMaster">
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="MemberId" ColumnName="MemberId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StatusMasters">
+            <EntityTypeMapping TypeName="TaskSimplerModel.StatusMaster">
+              <MappingFragment StoreEntitySet="StatusMaster">
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="MemberID" ColumnName="MemberID" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tasks">
+            <EntityTypeMapping TypeName="TaskSimplerModel.Task">
+              <MappingFragment StoreEntitySet="Task">
+                <ScalarProperty Name="Descriptioin" ColumnName="Descriptioin" />
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="PriorityId" ColumnName="PriorityId" />
+                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+                <ScalarProperty Name="CompletedOn" ColumnName="CompletedOn" />
+                <ScalarProperty Name="StartOn" ColumnName="StartOn" />
+                <ScalarProperty Name="MemberId" ColumnName="MemberId" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="Addedon" ColumnName="Addedon" />
+                <ScalarProperty Name="TaskName" ColumnName="TaskName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="usp_GetProjects" FunctionName="TaskSimplerModel.Store.usp_GetProjects">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TaskSimplerModel.usp_GetProjects_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Priority" ColumnName="Priority" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="MemberID" ColumnName="MemberID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_getPriority" FunctionName="TaskSimplerModel.Store.usp_getPriority">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TaskSimplerModel.usp_getPriority_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Priority" ColumnName="Priority" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="MemberID" ColumnName="MemberID" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_GetStatus" FunctionName="TaskSimplerModel.Store.usp_GetStatus">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TaskSimplerModel.usp_GetStatus_Result">
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="MemberID" ColumnName="MemberID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
